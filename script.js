@@ -25,27 +25,27 @@ function updateStats() {
     return;
   }
 
-  // Nieuwe gevoelens
+  
   if (hunger < 30 && thirst < 30) {
-    statusMsg.textContent = `${duckName || "Je eend"} is hongerig én dorstig 😫`;
+    statusMsg.textContent = `${duckName || "Je eend"} is hongerig én dorstig `;
     duckImg.src = "images/sad.jpg";
   } else if (hunger < 30) {
-    statusMsg.textContent = `${duckName || "Je eend"} heeft veel trek 🥺`;
+    statusMsg.textContent = `${duckName || "Je eend"} heeft veel trek `;
     duckImg.src = "images/sad.jpg";
   } else if (thirst < 30) {
-    statusMsg.textContent = `${duckName || "Je eend"} wil dringend water 💧`;
+    statusMsg.textContent = `${duckName || "Je eend"} wil dringend water `;
     duckImg.src = "images/thirsty.jpg";
   } else if (happiness < 25) {
-    statusMsg.textContent = `${duckName || "Je eend"} voelt zich alleen 😢`;
+    statusMsg.textContent = `${duckName || "Je eend"} voelt zich alleen `;
     duckImg.src = "iamges/sad.jpg";
   } else if (happiness < 50) {
-    statusMsg.textContent = `${duckName || "Je eend"} wil wat aandacht 🙃`;
+    statusMsg.textContent = `${duckName || "Je eend"} wil wat aandacht `;
     duckImg.src = "images/sad.jpg";
   } else if (hunger > 80 && thirst > 80 && happiness > 80) {
-    statusMsg.textContent = `${duckName || "Je eend"} is dolgelukkig 😄`;
+    statusMsg.textContent = `${duckName || "Je eend"} is dolgelukkig `;
     duckImg.src = "images/happy.jpg";
   } else {
-    statusMsg.textContent = `${duckName || "Je eend"} kijkt rustig rond 🦆`;
+    statusMsg.textContent = `${duckName || "Je eend"} kijkt rustig rond `;
     duckImg.src = "images/happy.jpg";
   }
 }
@@ -90,7 +90,7 @@ if (duckName) {
   document.getElementById("nameInputArea").style.display = "none";
 }
 
-// Game loopt sneller
+
 const gameLoop = setInterval(() => {
   hunger = Math.max(hunger - 3, 0);
   thirst = Math.max(thirst - 4, 0);
