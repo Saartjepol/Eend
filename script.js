@@ -1,101 +1,67 @@
-let hunger = 100;
-let thirst = 100;
-let happiness = 100;
-let duckName = localStorage.getItem("duckName") || null;
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Verzorg je Eend</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-const hungerEl = document.getElementById("hunger");
-const thirstEl = document.getElementById("thirst");
-const happinessEl = document.getElementById("happiness");
-const duckImg = document.getElementById("duck");
-const statusMsg = document.getElementById("statusMessage");
+  <!-- Startscherm game -->
+  <div id="startScreen">
+    <h1>Verzorg je eend </h1>
+    <button onclick="startGame()">Start het spel</button>
+  </div>
 
-function updateStats() {
-  hungerEl.textContent = hunger;
-  thirstEl.textContent = thirst;
-  happinessEl.textContent = happiness;
+  <!-- game -->
+  <div class="container" id="gameScreen">
+    <h1>Dit is <span id="duckNameTitle">je eend</span> </h1>
 
+    <button onclick="resetDuckName()">Naam wijzigen</button>
 
-  
+    <div id="nameInputArea">
+      <input type="text" id="nameInput" placeholder="Geef je eend een naam...">
+      <button onclick="setDuckName()">Opslaan</button>
+    </div>
 
-  if (hunger <= 0 || thirst <= 0) {
-    duckImg.src = "images/dead.jpg";
-    statusMsg.textContent = `${duckName || "Je eend"} is overleden 💀`;
-    document.getElementById("gameOverSound").play();
-    clearInterval(gameLoop);
-    return;
-  }
+    <div class="game">
+      <!-- stat links -->
+      <div class="stats">
+        <div class="stat">
+          <label for="hungerBar">Honger</label>
+          <progress id="hungerBar" value="100" max="100"></progress>
+        </div>
 
-  
-  if (hunger < 30 && thirst < 30) {
-    statusMsg.textContent = `${duckName || "Je eend"} is hongerig én dorstig `;
-    duckImg.src = "images/sad.jpg";
-  } else if (hunger < 30) {
-    statusMsg.textContent = `${duckName || "Je eend"} heeft veel trek `;
-    duckImg.src = "images/sad.jpg";
-  } else if (thirst < 30) {
-    statusMsg.textContent = `${duckName || "Je eend"} wil dringend water `;
-    duckImg.src = "images/thirsty.jpg";
-  } else if (happiness < 25) {
-    statusMsg.textContent = `${duckName || "Je eend"} voelt zich alleen `;
-    duckImg.src = "iamges/sad.jpg";
-  } else if (happiness < 50) {
-    statusMsg.textContent = `${duckName || "Je eend"} wil wat aandacht `;
-    duckImg.src = "images/sad.jpg";
-  } else if (hunger > 80 && thirst > 80 && happiness > 80) {
-    statusMsg.textContent = `${duckName || "Je eend"} is dolgelukkig `;
-    duckImg.src = "images/happy.jpg";
-  } else {
-    statusMsg.textContent = `${duckName || "Je eend"} kijkt rustig rond `;
-    duckImg.src = "images/happy.jpg";
-  }
-}
+        <div class="stat">
+          <label for="thirstBar">Dorst</label>
+          <progress id="thirstBar" value="100" max="100"></progress>
+        </div>
 
-function feedDuck() {
-  hunger = Math.min(hunger + 20, 100);
-  happiness = Math.min(happiness + 5, 100);
-  document.getElementById("eatSound").play();
-  updateStats();
-}
+        <div class="stat">
+          <label for="happinessBar">Blijheid</label>
+          <progress id="happinessBar" value="100" max="100"></progress>
+        </div>
 
-function giveWater() {
-  thirst = Math.min(thirst + 20, 100);
-  happiness = Math.min(happiness + 3, 100);
-  document.getElementById("drinkSound").play();
-  updateStats();
-}
+      </div>
 
-function petDuck() {
-  happiness = Math.min(happiness + 10, 100);
-  document.getElementById("petSound").play();
-  updateStats();
-}
-
-function setDuckName() {
-  const input = document.getElementById("nameInput").value.trim();
-  if (input) {
-    duckName = input;
-    localStorage.setItem("duckName", duckName);
-    document.getElementById("duckNameTitle").textContent = duckName;
-    document.getElementById("nameInputArea").style.display = "none";
-  }
-}
-
-function resetDuckName() {
-  localStorage.removeItem("duckName");
-  location.reload();
-}
-
-if (duckName) {
-  document.getElementById("duckNameTitle").textContent = duckName;
-  document.getElementById("nameInputArea").style.display = "none";
-}
+      <!-- eend  -->
+      <div class="duck-area">
+        <img id="duck" src="images/happy.jpg" alt="eend">
 
 
-const gameLoop = setInterval(() => {
-  hunger = Math.max(hunger - 3, 0);
-  thirst = Math.max(thirst - 4, 0);
-  happiness = Math.max(happiness - 2, 0);
-  updateStats();
-}, 3000);
+      <!-- buttons  -->
+        <div class="buttons">
+          <button onclick="feedDuck()">Geef eten</button>
+          <button onclick="giveWater()">Geef water</button>
+          <button onclick="petDuck()">Aaien</button>
+        </div>
+      </div>
+    </div>
 
-updateStats();
+    <p id="statusMessage"></p>
+    <button onclick="resetGame()">Opnieuw beginnen</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
